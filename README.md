@@ -12,7 +12,7 @@ It has been tested and used in production with `Ubuntu` virtual servers. Other d
 ## How to setup
 `group_vars/all/users.yml` file contains list of company super admins which should gain access to all created servers. Remove our example data and put list of your admins over there instead.
 
-Create new folder inside `environments` for certain servers. Typically these are named like: `production`, `testing` or `clientnamehere-cluster`.
+Create new folder inside `environments` for certain servers. For example these can be: `production`, `testing` or `clientnamehere-cluster`.
 
 Then create inventory file for the servers. This is an example:
 ```
