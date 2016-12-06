@@ -22,7 +22,10 @@ yyy.yyy.yyy.yyy
 ```
 You can use hostnames or ip-addresses here.
 
-Then add people involved with certain environments into `environments/{{your-environment}}/group_vars/all/users.yml`.
+Then add people involved with certain environments into:
+```
+environments/{{your-environment}}/group_vars/all/users.yml
+```
 
 ## Example data
 
