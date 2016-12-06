@@ -1,0 +1,54 @@
+##
+# Install python into all machines to start using ansible
+##
+- name: Setup ansible
+  hosts: all
+  tags: ['pre-deploy']
+  gather_facts: no
+  become: yes
+  tasks:
+    - name: Update apt packages
+      raw: sudo apt-get update
+      tags: ['ubuntu']
+
+    - name: Install python & aptitude for ansible
+      raw: sudo apt-get install python aptitude -y
+      tags: ['ubuntu']
+
+- name: Setup admin users
+  hosts: all
+  gather_facts: yes
+  tags: ['users']
+  become: yes
+  vars_files:
+    - vars/users.yml
+  tasks:
+    # Creates users from
+    - include: tasks/setup-users-and-group.yml
+
+    # Allows sudo for created users without passwords
+    - include: tasks/allow-sudo.yml
+
+# This is just a small best practise for all ssh connections
+- name: Setup SSH Security hardening
+  hosts: all
+  tags: ['security']
+  become: yes
+  tasks:
+    - name: Disallow root SSH access
+      lineinfile: dest=/etc/ssh/sshd_config
+                  regexp="^PermitRootLogin"
+                  line="PermitRootLogin no"
+                  state=present
+      notify: restart ssh
+
+    - name: Disallow password SSH access
+      lineinfile: dest=/etc/ssh/sshd_config
+                  regexp="^PasswordAuthentication"
+                  line="PasswordAuthentication no"
+                  state=present
+      notify: restart ssh
+  handlers:
+    - name: restart ssh
+      service: name=ssh state=restarted
+

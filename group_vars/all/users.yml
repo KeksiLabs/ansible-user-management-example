@@ -1,0 +1,18 @@
+# These users will be created into all servers
+# All users with state: present will be created and state absent will be deleted
+company_admin_list:
+  - name: "Onni Hakala"
+    username: "onnimonni"
+    keys:
+      active:
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8gOdvYe12yaVQGMZXgn0qcd7vxMZhj1wsBTDFP/HnwdnbywbV/jt//yGex51cTkfqoP3YlkdgUfQeKJws4j7rxu04gx6uRBIlRcR+7wdcFgksFs4EFumTpZOSOwKybHVIbeIubLi76+mhB9L2JXD4f+TtkL0WJtvBDsCavGLHbru2JafS3K/6b97sU2vpmA/mDREKDpnuVxcMXsXlY0THgoxx70L7SjYsWMzRYiJc+FWzMqyi1yribhEUuUT4ch6B7DiBuPfWFQUlA2KkGbihsw+Kmyrw0e36z1MOEWAhroczt8zKjawWeYQ4qTwQRrjM8b+C2yfFgBpUqFAhAM0Lb9dh8V3xfui30zik2eW2LTQ4JtD2xNUflA+NvG2+fcB7w3ub+QNXI3zp+Joto627oB3j4Nao+s/XHOd0T8idHVrbfhoRK8UE4r6nKI8b5b7JrzaDipE1CjS2TsIixaj9a/VxYMtNE2A9JPGHsXlIPpi++GaW+rz4DZoqkArfsFE= onni@keksi.io"
+      disabled:
+        - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCsPoDM21LjBodcS3Kiq7ZDyNjFY4L03Yx2nSoSzdV7TKj00Zk8gh1hSSgI/xSDXiK+QEbfPuh/7+G3sfeDDNavjWUA1kdLve4D6MTI302C3HilK6wOZV67ezyAgdgf/VCHfx+no+bocw/05r1VamLrnFjDasWAQFFeFLaOnfQTArHQRl2Z8+4ZtZ1YQPhnleFQfEz546D3oWE1DS3vuXL1Qodz3gijtHhGnc3jaQM+7m/gg2vrcL6bc/vCtdunpA1fSQrBSx0kK4qdTWwc2LZDwKIT3YP5GthvgkFHsbCo2mNdBwWZfOBTYr5LBpz9YBcO7oVBWVEI00BdEPRFOYJL onnimonni@Onni-MacBook-Air.local"
+    shell: "/bin/bash"
+    state: present
+  - name: "Example Person"
+    username: "example-quitted-person"
+    state: absent
+
+# This is the admin group where we will add users with sudo access
+admin_group: infra_admin

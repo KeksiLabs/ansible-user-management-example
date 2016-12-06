@@ -1,0 +1,5 @@
+# Don't include ansible retry files
+*.retry
+
+# No OSX stuff
+.DS_Store

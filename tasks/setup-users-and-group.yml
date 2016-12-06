@@ -1,0 +1,41 @@
+- name: Create admin group
+  group: name={{ admin_group }} state=present
+
+# Combine two user lists here
+- set_fact: full_admin_list="{{ company_admin_list + project_admin_list }}"
+  tags: ['debug']
+
+- name: Setup all users
+  user:
+    name: "{{ item.username }}"
+    state: "{{ item.state | default('present') }}"
+    shell: "{{ item.shell | default('/bin/bash') }}"
+    group: "{{ admin_group }}"
+    remove: yes
+  when: item.username is defined
+  with_items:
+    - "{{ full_admin_list }}"
+
+- name: Add SSH-keys to users
+  authorized_key:
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+  with_subelements:
+    - "{{ full_admin_list }}"
+    - keys.active
+    - flags:
+      skip_missing: True
+  when: item.0.state != "absent"
+
+- name: Remove old SSH-keys from users
+  authorized_key:
+    user: "{{ item.0.username }}"
+    key: "{{ item.1 }}"
+    state: absent
+  with_subelements:
+    - "{{ full_admin_list }}"
+    - keys.disabled
+    - flags:
+      skip_missing: True
+  when: item.0.state != "absent"
+  tags: ['debug']
